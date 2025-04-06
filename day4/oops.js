@@ -5,7 +5,7 @@ let name = "John";
 let age = 25;
 
 const printUser = (name, age) => {
-    console.log(`Name: ${name}, Age: ${age}`);
+    console.log(`Name:- ${name}, Age:- ${age}`);
 };
 
 printUser(name, age);
