@@ -2,7 +2,7 @@ console.log("oops");
 
 // procedural programming
 let name = "John";
-let age = 25;
+let age = 24;
 
 const printUser = (name, age) => {
     console.log(`Name:- ${name}, Age:- ${age}`);
