@@ -67,9 +67,9 @@ function App() {
           backgroundColor: 'skyblue',
           marginBottom: '1rem',
         }}
-      >
-      <p>Box width: {width}px</p>
+        >
       </div>
+      <p>Box width: {width}px</p>
     </div>
   );
 }
