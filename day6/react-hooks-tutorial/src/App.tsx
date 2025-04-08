@@ -1,38 +1,38 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useLayoutEffect } from "react";
 
 function App() {
   const [count, setCount] = useState<number>(0);
   const inputRef = useRef<HTMLInputElement>(null);
-  // const [width, setWidth] = useState(0);
+  const [width, setWidth] = useState(0);
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     console.log("Tick Tock...");
-  //   }, 1000);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log("Tick Tock...");
+    }, 1000);
 
-  //   return () => {
-  //     clearInterval(interval);
-  //     console.log("No more Tick Tock...");
-  //   };
-  // }, []);
+    return () => {
+      clearInterval(interval);
+      console.log("No more Tick Tock...");
+    };
+  }, []);
 
-  // useEffect(() => {
-  //   fetch('https://randomuser.me/api/')
-  //     .then(res => res.json())
-  //     .then(data => console.log("Users: ", data.results[0]))
-  //     .catch(err => console.error("Error: ", err));
-  // }, []);
+  useEffect(() => {
+    fetch('https://randomuser.me/api/')
+      .then(res => res.json())
+      .then(data => console.log("Users: ", data.results[0]))
+      .catch(err => console.error("Error: ", err));
+  }, []);
 
-  // useEffect(() => {
-  //   const newWidth = document.getElementById("box")?.offsetWidth || 0;
-  //   setWidth(newWidth);
-  //   console.log("useEffect width:", newWidth);
-  // }, []);
+  useEffect(() => {
+    const newWidth = document.getElementById("box")?.offsetWidth || 0;
+    setWidth(newWidth);
+    console.log("useEffect width:", newWidth);
+  }, []);
 
-  // useLayoutEffect(() => {
-  //   const newWidth = document.getElementById("box")?.offsetWidth || 0;
-  //   console.log("useLayoutEffect width: ", newWidth);
-  // }, []);
+  useLayoutEffect(() => {
+    const newWidth = document.getElementById("box")?.offsetWidth || 0;
+    console.log("useLayoutEffect width: ", newWidth);
+  }, []);
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -57,7 +57,7 @@ function App() {
           fontSize: '1rem'
         }}
       />
-      {/* <h2>useLayoutEffect</h2>
+      <h2>useLayoutEffect</h2>
       <div
         id="box"
         style={{
@@ -68,7 +68,8 @@ function App() {
           marginBottom: '1rem',
         }}
       >
-      </div> */}
+      <p>Box width: {width}px</p>
+      </div>
     </div>
   );
 }
