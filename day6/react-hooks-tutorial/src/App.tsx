@@ -1,75 +1,84 @@
-import { useEffect, useState, useRef, useLayoutEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function App() {
-  const [count, setCount] = useState<number>(0);
+  const [email, setEmail] = useState("");
+  const [isValidEmail, setIsValidEmail] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  const [width, setWidth] = useState(0);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      console.log("Tick Tock...");
-    }, 1000);
-
-    return () => {
-      clearInterval(interval);
-      console.log("No more Tick Tock...");
-    };
-  }, []);
-
-  useEffect(() => {
-    fetch('https://randomuser.me/api/')
-      .then(res => res.json())
-      .then(data => console.log("Users: ", data.results[0]))
-      .catch(err => console.error("Error: ", err));
-  }, []);
-
-  useEffect(() => {
-    const newWidth = document.getElementById("box")?.offsetWidth || 0;
-    setWidth(newWidth);
-    console.log("useEffect width:", newWidth);
-  }, []);
-
-  useLayoutEffect(() => {
-    const newWidth = document.getElementById("box")?.offsetWidth || 0;
-    console.log("useLayoutEffect width: ", newWidth);
-  }, []);
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
 
-  return(
-    <div style={{
-      padding: '2rem'
-    }}>
-      <h1>React Hooks</h1>
-      <h2>Count: {count}</h2>
-      <button onClick={() => setCount(count + 1)}>
-        Oompa Loompa
-      </button>
-      <h2>useRef</h2>
-      <input 
-        ref={inputRef}
-        type="text"
-        placeholder="Type here..."
-        style={{
-          padding: '0.5rem',
-          fontSize: '1rem'
-        }}
-      />
-      <h2>useLayoutEffect</h2>
+  const handleValidateEmail = () => {
+    if (emailRegex.test(email)) {
+      setIsValidEmail(true);
+    } else {
+      setIsValidEmail(false);
+    }
+  };
+
+  const toggleElement = () => {
+    setIsVisible((prev) => !prev);
+  };
+
+  return (
+    <div
+      style={{
+        padding: "2rem",
+        alignItems: "center",
+      }}
+    >
+      <h1>React Hooks Assignment</h1>
       <div
-        id="box"
         style={{
-          width: '100%',
-          maxWidth: '500px',
-          height: '100px',
-          backgroundColor: 'skyblue',
-          marginBottom: '1rem',
+          display: "flex",
+          flexDirection: "column",
+          textAlign: "center"
         }}
-        >
+      >
+        <h2>Email Validator</h2>
+        <input
+          onChange={(e) => setEmail(e.target.value)}
+          style={{
+            padding: "0.5rem",
+            fontSize: "1rem",
+          }}
+          type="text"
+          ref={inputRef}
+          value={email}
+          placeholder="Enter email..."
+        />
+        <br />
+        <button onClick={handleValidateEmail}>CHECK EMAIL</button>
+        {isValidEmail ? <p style={{ color: "lightgreen" }}>✅ VALID EMAIL</p> : <p style={{ color: "red" }}>ENTER A VALID EMAIL</p>}
       </div>
-      <p>Box width: {width}px</p>
+      <hr />
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          textAlign: "center"
+        }}
+      >
+        <h2>Toggle Element</h2>
+        <button onClick={toggleElement}>
+          {!isVisible ? "Show Element" : "Hide Element"}
+        </button>
+        <div 
+          style={{ 
+            opacity: isVisible ? 1 : 0, 
+            backgroundColor: 'blue', 
+            transition: "opacity 0.25s ease-in-out",
+            color: 'white', 
+            padding: '40px',
+            marginTop: '20px',
+            pointerEvents: isVisible ? "auto" : "none",
+          }}
+        ></div>
+      </div>
     </div>
   );
 }
