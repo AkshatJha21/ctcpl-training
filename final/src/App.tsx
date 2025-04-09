@@ -10,7 +10,7 @@ const getTicketDetails = () => {
     setTimeout(() => {
       const data = Array.from({ length: 1000 }, (_, i) => ({
         ticketName: `ticket ${i + 1}`,
-        description: `description ${i}`
+        description: `description ${i + 1}`
       }));
       resolve(data);
     }, 2000);
@@ -64,7 +64,7 @@ function App() {
               borderRadius: '5px'
             }}
           >
-            <strong>{ticket.ticketName}</strong>
+            <p><strong>{ticket.ticketName}</strong></p>
             <p>{ticket.description}</p>
           </li>
         ))}
