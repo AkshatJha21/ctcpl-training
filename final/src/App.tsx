@@ -9,9 +9,9 @@ const getTicketDetails = () => {
   return new Promise<Ticket[]>((resolve) => {
     setTimeout(() => {
       const data = Array.from({ length: 1000 }, (_, i) => ({
-  ticketName: `ticket ${i + 1}`,
-  description: `description ${i}`
-}));
+        ticketName: `ticket ${i + 1}`,
+        description: `description ${i}`
+      }));
       resolve(data);
     }, 2000);
   });
